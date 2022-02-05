@@ -83,8 +83,8 @@ const getExerciseLog = (input, done) => {
     let logInput = JSON.stringify(input);
     console.log(`Exercise Log Input: ${logInput}`);
 
-    let { userId, from, to, limit } = JSON.parse(logInput);
-    console.log(`Exercise Log Input Values: ${userId}, ${from}, ${to}, ${limit}`);
+    let { userId, from: fromDate, to: toDate, limit } = JSON.parse(logInput);
+    console.log(`Exercise Log Input Values: ${userId}, ${fromDate}, ${toDate}, ${limit}`);
 
     // Find Exercise logs for user by querying using UserId
     Exercise.find({
@@ -102,23 +102,30 @@ const getExerciseLog = (input, done) => {
 
         console.log(`Successfully found exercise logs for user: ${logFound}`);
 
+        // Filter the logs between fromDate & toDate
+        // Then sort the logs by ascending order of log date
+        // Finally just pick & push the required properties to log[]
         let log = [];
-        logFound.map((item) => {
-            log.push({
-                description: item.description,
-                duration: item.duration,
-                date: item.date.toDateString()
+        logFound
+            .filter(exerciseLog => exerciseLog.date >= new Date(fromDate))
+            .filter(exerciseLog => exerciseLog.date <= new Date(toDate))
+            .sort((firstDate, secondDate) => firstDate.date > secondDate.date)
+            .map((item) => {
+                log.push({
+                    description: item.description,
+                    duration: item.duration,
+                    date: item.date.toDateString()
+                });
             });
-        });
 
         // console.log(`ResponseLog: ${JSON.stringify(log)}`);
 
         let logResponseObject = {
             _id: logFound[0].userId,
             username: logFound[0].username,
-            from: new Date(from).toDateString(),
-            to: new Date(to).toDateString(),
-            count: logFound.length,
+            from: new Date(fromDate).toDateString(),
+            to: new Date(toDate).toDateString(),
+            count: log.length,
             log
         };
         done(null, logResponseObject);
