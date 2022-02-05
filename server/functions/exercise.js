@@ -123,7 +123,7 @@ const getExerciseLog = (input, done) => {
         };
         done(null, logResponseObject);
         return logResponseObject;
-    });
+    }).limit(limit);
 }
 
 exports.ExerciseModel = Exercise;
