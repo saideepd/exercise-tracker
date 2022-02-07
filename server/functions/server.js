@@ -41,14 +41,14 @@ let connection = mongoose.connect(process.env.MONGO_URI, {
 
 router.get("/", (req, res) => {
     res.json({
-        message: "Hello from Express Server!"
+        message: "Hello from Exercise Tracker!"
     });
 });
 
 // Default API Endpoint
 router.get("/api", (req, res) => {
     res.json({
-        message: "Hello from Exercise Tracker!"
+        message: "Hello from Exercise Tracker API!"
     });
 });
 
