@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header/Header';
+import Information from './components/Information/Information';
 
 const baseUrl = "http://localhost:8888";
 
@@ -21,12 +23,14 @@ function App() {
 
   return (
     <div className="App">
+      <Header/>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           {!data ? "Loading..." : `${data}`}
         </p>
       </header>
+      <Information/>
     </div>
   );
 }
