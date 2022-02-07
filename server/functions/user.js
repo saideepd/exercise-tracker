@@ -45,8 +45,10 @@ const createUser = (input, done) => {
 
 const findUserById = (input, done) => {
     console.log(`findUserById Input: ${input}`);
-    User.findById({
-        $eq: input
+    User.findOne({
+        _id: {
+            $eq: input
+        }
     }, (findUserError, userFound) => {
         if (findUserError) {
             console.log(`Error finding user by id: ${findUserError}`);
