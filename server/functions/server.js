@@ -5,14 +5,14 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const serverless = require('serverless-http');
 const router = express.Router();
-const user = require('./functions/user');
-const exercise = require('./functions/exercise');
+const user = require('./user');
+const exercise = require('./exercise');
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-app.listen();
+// app.listen();
 
 // Enable CORS
 app.use(cors({
@@ -20,9 +20,12 @@ app.use(cors({
 }));
 
 // Adding body-parser middleware
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+app.use('/', router);
+
 
 // Hide X-powered-by header ;)
 app.use(function (req, res, next) {
@@ -34,6 +37,12 @@ app.use(function (req, res, next) {
 let connection = mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
+});
+
+router.get("/", (req, res) => {
+    res.json({
+        message: "Hello from Express Server!"
+    });
 });
 
 // Default API Endpoint
@@ -291,10 +300,9 @@ router.get("/api/users/:_id/logs", (req, res, next) => {
 });
 
 
-app.use('/', router);
 
-app.listen(PORT, () => {
-    console.log(`Server is listening on ${PORT}`);
-});
-
+// app.listen(PORT, () => {
+//     console.log(`Server is listening on ${PORT}`);
+// });
+// module.exports = app;
 module.exports.handler = serverless(app);

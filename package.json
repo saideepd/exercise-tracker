@@ -2,10 +2,10 @@
   "name": "exercise-tracker",
   "version": "1.0.0",
   "description": "A simple app used to log & track different exercises done by a user",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/index.js"
+    "start": "node server/server.js"
   },
   "keywords": [
     "express",
