@@ -1,12 +1,11 @@
 .information {
-    background-color: #282c34;
-    color: #ffffff;
     padding: 0.5em;
 }
 
 .endpoint {
-    background-color: #FFFEC4;
+    background-color: #eee8aa;
     font-family: 'Courier New', Courier, monospace;
     color: #000000;
     padding: 0.25em;
+    width: max-content;
 }
