@@ -1,0 +1,41 @@
+.user-component {
+    margin: 1em;
+}
+
+.user-paper {
+    width: 18em;
+    height: 15em;
+    padding: 2em;
+    border: 2px solid #deb887;
+    background-color: #fffff0;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-endpoint {
+    background-color: #eee8aa;
+    font-family: 'Courier New', Courier, monospace;
+    color: #000000;
+    padding: 0.25em;
+    width: max-content;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#create-user-btn {
+    margin-top: 1em;
+}
+
+.user-input {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+@media screen and (max-width: 450px) {
+    .user-paper {
+        width: 15em;
+        height: 15em;
+        padding: 2em;
+    }
+}
