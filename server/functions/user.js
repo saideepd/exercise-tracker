@@ -83,8 +83,23 @@ const findUserByUsername = (input, done) => {
     });
 };
 
+const findAllUsers = (input, done) => {
+    User.find({}, (findAllUsersError, allUsers) => {
+        if(findAllUsersError) {
+            console.log(`Error retrieving all users: ${findAllUsersError}`);
+            done(null, {
+                error: "Error retrieving users"
+            });
+            return (`Error retreiving users: ${findAllUsersError}`);
+        }
+        console.log(`findAllUsers: ${allUsers}`);
+        done(null, allUsers);
+        return allUsers;
+    });
+};
 
 exports.UserModel = User;
 exports.createUser = createUser;
 exports.findUserById = findUserById;
 exports.findUserByUsername = findUserByUsername;
+exports.findAllUsers = findAllUsers;

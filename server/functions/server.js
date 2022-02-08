@@ -59,6 +59,39 @@ router.get("/api/hello", (req, res) => {
     });
 });
 
+// GET All Users API Endpoint
+router.get("/api/users", (req, res, next) => {
+    user.findAllUsers(null, (err, responseData) => {
+        if (err) {
+            console.log(`Error retrieving users: ${err}`);
+            res.status(400).json({
+                error: err
+            });
+            return next(err);
+        } else if (!responseData) {
+            console.log('Missing `done()` argument');
+            res.status(500).json({
+                error: "Error retrieving user records"
+            });
+            return next({
+                error: "Error retrieving user records"
+            });
+        } else if (responseData.toString().toLowerCase().includes('error' || 'exists' || 'already')) {
+            console.log(`Error in findAllUsers response data: ${JSON.stringify(responseData)}`);
+            res.status(422).json({
+                error: "Error retrieving user data. Please try again after sometime."
+            });
+        } else if (Object.entries.length == 0) {
+            res.status(422).json({
+                error: "Error retrieving users"
+            });
+        } else {
+            console.log(`Find All Users Response Data: ${responseData}`);
+            // Directly passing JSON object array as per freeCodeCamp user story
+            res.status(200).json(responseData);
+        }
+    });
+});
 
 // Create User API Endpoint
 router.post("/api/users", (req, res, next) => {
