@@ -13,8 +13,7 @@ const CssTextField = styled(TextField)({
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
       borderColor: '#7a7cff',
-      border: '2px solid #7a7cff',
-      backgroundColor: 'white'
+      border: '2px solid #7a7cff'
     },
     '&:hover fieldset': {
       borderColor: '#304ffe',
@@ -45,8 +44,8 @@ const ExerciseLog = () => {
         <CssTextField
           required
           id="outlined-required"
-          label="userid"
-          name="userid"
+          label="User Id"
+          name="UserId"
           placeholder=":_id"
           className="user-input"
           size="small"
@@ -55,9 +54,9 @@ const ExerciseLog = () => {
         <CssTextField
           required
           id="outlined-required"
-          label="description"
-          name="description"
-          placeholder="description"
+          label="Description"
+          name="Description"
+          placeholder="Description"
           className="user-input"
           size="small"
           margin="dense"
@@ -65,9 +64,9 @@ const ExerciseLog = () => {
         <CssTextField
           required
           id="outlined-required"
-          label="duration"
-          name="duration"
-          placeholder="duration* (mins)"
+          label="Duration"
+          name="Duration"
+          placeholder="Duration (mins.)"
           className="user-input"
           size="small"
           margin="dense"
@@ -75,19 +74,9 @@ const ExerciseLog = () => {
         <CssTextField
           required
           id="outlined-required"
-          label="date"
-          name="date"
-          placeholder="date (yyyy-mm-dd)"
-          className="user-input"
-          size="small"
-          margin="dense"
-        />
-        <CssTextField
-          required
-          id="outlined-required"
-          label="Username"
-          name="username"
-          placeholder="username"
+          label="Date"
+          name="Date"
+          placeholder="Date (yyyy-mm-dd)"
           className="user-input"
           size="small"
           margin="dense"
