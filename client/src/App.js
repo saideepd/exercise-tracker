@@ -3,6 +3,7 @@ import './App.css';
 import Header from './components/Header/Header';
 import Information from './components/Information/Information';
 import User from './components/User/User';
+import Exercise from './components/ExerciseLog/ExerciseLog';
 import { Container } from '@mui/material';
 
 const baseUrl = "http://localhost:8888";
@@ -33,6 +34,7 @@ function App() {
         </p>
         <div className="user-exercise-form">
           <User />
+          <Exercise />
         </div>
         <Information />
       </Container>

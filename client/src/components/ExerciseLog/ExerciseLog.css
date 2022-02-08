@@ -1,0 +1,44 @@
+.exercise-component {
+    margin: 1em;
+}
+
+.exercise-paper {
+    width: 18em;
+    height: max-content;
+    padding: 2em;
+    border: 2px solid #304ffe;
+    background-color: #fff9c4;
+    display: flex;
+    flex-direction: column;
+}
+
+.exercise-endpoint {
+    background-color: #eee8aa;
+    font-family: 'Courier New', Courier, monospace;
+    color: #000000;
+    padding: 0.25em;
+    width: max-content;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#create-exerciselog-btn {
+    margin-top: 1em;
+}
+
+.user-input {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+@media screen and (max-width: 450px) {
+    .exercise-paper {
+        width: 15em;
+        padding: 2em;
+    }
+
+    .exercise-endpoint {
+        width: auto;
+    }
+}
