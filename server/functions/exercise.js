@@ -83,6 +83,8 @@ const getExerciseLog = (input, done) => {
     let logInput = JSON.stringify(input);
     console.log(`Exercise Log Input: ${logInput}`);
 
+    // Setting fromDate = 0 which takes default date as 1970-01-01
+    // And toDate = 10000000000000 which takes default date as 2286-11-20 if no input provided 
     let { userId, from: fromDate = 0, to: toDate = 10000000000000, limit } = JSON.parse(logInput);
     console.log(`Exercise Log Input Values: ${userId}, ${fromDate}, ${toDate}, ${limit}`);
 
@@ -123,8 +125,6 @@ const getExerciseLog = (input, done) => {
         let logResponseObject = {
             _id: logFound[0].userId,
             username: logFound[0].username,
-            from: new Date(fromDate).toDateString(),
-            to: new Date(toDate).toDateString(),
             count: log.length,
             log
         };
