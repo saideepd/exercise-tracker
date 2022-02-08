@@ -83,7 +83,7 @@ const getExerciseLog = (input, done) => {
     let logInput = JSON.stringify(input);
     console.log(`Exercise Log Input: ${logInput}`);
 
-    let { userId, from: fromDate, to: toDate, limit } = JSON.parse(logInput);
+    let { userId, from: fromDate = 0, to: toDate = 10000000000000, limit } = JSON.parse(logInput);
     console.log(`Exercise Log Input Values: ${userId}, ${fromDate}, ${toDate}, ${limit}`);
 
     // Find Exercise logs for user by querying using UserId
