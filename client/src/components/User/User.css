@@ -4,10 +4,10 @@
 
 .user-paper {
     width: 18em;
-    height: 15em;
+    height: max-content;
     padding: 2em;
-    border: 2px solid #deb887;
-    background-color: #fffff0;
+    border: 2px solid #304ffe;
+    background-color: #fff9c4;
     display: flex;
     flex-direction: column;
 }
@@ -35,7 +35,6 @@
 @media screen and (max-width: 450px) {
     .user-paper {
         width: 15em;
-        height: 15em;
         padding: 2em;
     }
 }
