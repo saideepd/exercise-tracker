@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/functions/server.js"
+    "prestart": "npm link client/node_modules/react",
+    "start": "netlify dev"
   },
   "keywords": [
     "express",
