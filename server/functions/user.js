@@ -22,25 +22,36 @@ const createUser = (input, done) => {
         };
     }
 
-    let userObject = User({
-        username: input
-    });
-    console.log(userObject);
+    let checkUser = findUserByUsername(input, (checkUserError, userFound) => {
+        if (!userFound) {
 
-    User.create(userObject, (createUserError, createdUser) => {
-        if (createUserError) {
-            // console.log(createUserError);
-            createUserError.message = createUserError.toString().includes("duplicate") ?
-                "User already exists" : "Error creating user";
-            done(null, createUserError);
-            return {
-                error: createUserError
-            };
+            let userObject = User({
+                username: input
+            });
+            console.log(userObject);
+
+            User.create(userObject, (createUserError, createdUser) => {
+                if (createUserError) {
+                    // console.log(createUserError);
+                    createUserError.message = createUserError.toString().includes("duplicate") ?
+                        "User already exists" : "Error creating user";
+                    done(null, createUserError);
+                    return {
+                        error: createUserError
+                    };
+                }
+                createdUser.message = "User created successfully";
+                done(null, createdUser);
+                return createdUser;
+            });
         }
-        createdUser.message = "User created successfully";
-        done(null, createdUser);
-        return createdUser;
+        else {
+            console.log(`CheckUser found: ${userFound}`);
+            done(null, userFound);
+            return userFound;
+        }
     });
+
 };
 
 const findUserById = (input, done) => {
@@ -85,7 +96,7 @@ const findUserByUsername = (input, done) => {
 
 const findAllUsers = (input, done) => {
     User.find({}, (findAllUsersError, allUsers) => {
-        if(findAllUsersError) {
+        if (findAllUsersError) {
             console.log(`Error retrieving all users: ${findAllUsersError}`);
             done(null, {
                 error: "Error retrieving users"
