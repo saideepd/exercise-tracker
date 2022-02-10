@@ -2,6 +2,7 @@ import React from 'react'
 import './ExerciseLog.css';
 import { Button, Paper, TextField } from '@mui/material';
 import { styled } from "@mui/material/styles";
+import { currentUsername, isSubmitted } from '../User/User';
 
 const CssTextField = styled(TextField)({
   '& label.Mui-focused': {
@@ -31,13 +32,13 @@ const ColorButton = styled(Button)({
   }
 });
 
-const ExerciseLog = () => {
+const ExerciseLog = ({formData}) => {
   return (
     <div className="exercise-component">
       <Paper
         elevation={3}
         className="exercise-paper"
-        style={{ backgroundColor: '#fff9c4' }}
+        style={{ backgroundColor: '#fff9c4', paddingTop: '0.5em' }}
       >
         <h3>Add exercises</h3>
         <p className="endpoint exercise-endpoint">POST /api/users/:_id/exercises</p>
@@ -88,6 +89,19 @@ const ExerciseLog = () => {
         >
           Submit
         </ColorButton>
+        {isSubmitted && 
+          console.log(`Exercise currentUsername: ${JSON.stringify(currentUsername)}, formData: ${JSON.stringify(formData)}`)
+          // <div>
+          //   <ul>
+          //     {currentUsername !== null && (
+          //       <li key={currentUsername._id}><strong>_id:</strong> {currentUsername._id}</li>
+          //     )}
+          //     {currentUsername !== null && (
+          //       <li key={currentUsername.username}><strong>username:</strong> {currentUsername.username}</li>
+          //     )}
+          //   </ul>
+          // </div>
+        }
       </Paper>
     </div>
   )

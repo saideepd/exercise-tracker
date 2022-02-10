@@ -1,10 +1,12 @@
-import React, { useState, useReducer } from 'react'
+import React from 'react'
 import './User.css';
 import { Alert, Button, debounce, Paper, TextField } from '@mui/material';
 import { styled } from "@mui/material/styles";
 import axios from 'axios';
 
 const baseUrl = "http://localhost:8888";
+let currentUsername;
+let isSubmitted = false;
 
 const CssTextField = styled(TextField)({
   '& label.Mui-focused': {
@@ -35,29 +37,24 @@ const ColorButton = styled(Button)({
   }
 });
 
-const formReducer = (state, event) => {
-  return {
-    ...state,
-    [event.name]: event.value
-  };
-}
 
-let isSubmitted = false;
 
-const User = () => {
-  const [formData, setFormData] = useReducer(formReducer, {})
-  const [submitting, setSubmitting] = useState(false);
-  const [post, setPost] = useState(null);
+const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost }) => {
+
 
   // Call the Create User API with POST request
   const createUser = async () => {
     console.log('called create user response');
-    await axios.post(`${baseUrl}/api/users`, {
-      username: formData.username
-    }
+    await axios.post(`${baseUrl}/api/users`,
+      {
+        username: formData.username
+      }
     )
       .then((response) => {
         setPost(response.data)
+        console.log(`createUser Response Data: ${JSON.stringify(response.data)}`)
+        currentUsername = response.data;
+        console.log(`CurrentUsername: ${JSON.stringify(currentUsername)}`)
       })
       .catch((error) => {
         console.log(`Error: ${error}, formData:${JSON.stringify(formData)}, post: ${JSON.stringify(post)}, type: ${typeof post}`)
@@ -80,34 +77,26 @@ const User = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Setting Submit to true in 1s
+    // Setting Submit to true in 0.1s
     setTimeout(() => {
       console.log('called handleSubmit to true');
       setSubmitting(true);
       isSubmitted = true;
 
       console.log("You've submitted the form");
-      // alert("You've submitted the form");
-    }, 1000);
+    }, 100);
 
     // Setting Submit to false in next 3s
     setTimeout(() => {
-      // Retry pattern
-      // TODO: Instead of POST request for retry,
-      // need to use getByUserName to fetch submitted user details
-      // if (post === null && count < 1) {
-      //   console.log(`Retry atttempt count: ${count}`);
-      //   // handleSubmit(event);
-      //   getUserByUsername();
-      //   console.log(`createUserResponse getByUsername: ${JSON.stringify(post)}`);
-      //   count++;
-      // }
 
+      // Call create user method
       let createUserResponse = createUser();
       console.log(`createUserResponse: ${JSON.stringify(post)}`);
       console.log('called createUser()');
 
+      // Set Submitted to false after 3s
       setSubmitting(false);
+      isSubmitted=false;
       console.log('Called handleSubmit to false');
     }, 3000);
   }
@@ -120,6 +109,7 @@ const User = () => {
     console.log(`name: ${event.target.name}, value: ${event.target.value}`)
   }
 
+  // using debounce to avoid frequent calls
   const handleText = debounce((event) => {
     handleChange(event);
   }, 500);
@@ -130,7 +120,7 @@ const User = () => {
         <Paper
           elevation={3}
           className="user-paper"
-          style={{ backgroundColor: '#fff9c4' }}
+          style={{ backgroundColor: '#fff9c4', paddingTop: '0.5em' }}
         >
           <h3>Create a New User</h3>
           <p className="endpoint user-endpoint">POST /api/users</p>
@@ -181,3 +171,4 @@ const User = () => {
 }
 
 export default User
+export {currentUsername, isSubmitted};

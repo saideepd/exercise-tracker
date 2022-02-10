@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useReducer } from 'react'
 import './App.css';
 import Header from './components/Header/Header';
 import Information from './components/Information/Information';
@@ -6,22 +6,23 @@ import User from './components/User/User';
 import Exercise from './components/ExerciseLog/ExerciseLog';
 import { Container } from '@mui/material';
 
-const baseUrl = "http://localhost:8888";
 
 function App() {
-  const [data, setData] = useState(null);
 
-  useEffect(() => {
-    fetch(`${baseUrl}/api`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then((res) => res.json())
-      .then((data) => setData(data.message))
-      .catch((err) => console.log(err, data));
-  }, [data]);
+  // Its a reducer function to update existing 
+  // state's individual properties
+  const formReducer = (state, event) => {
+    return {
+      ...state,
+      [event.name]: event.value
+    };
+  }
+
+  // User variables
+  const [formData, setFormData] = useReducer(formReducer, {})
+  const [submitting, setSubmitting] = useState(false);
+  const [post, setPost] = useState(null);
+
 
   return (
     <div className="App">
@@ -29,12 +30,18 @@ function App() {
         className="container"
       >
         <Header />
-        <p>
-          {!data ? "Loading..." : `${data}`}
-        </p>
         <div className="user-exercise-form">
-          <User />
-          <Exercise />
+          <User
+            formData={formData}
+            setFormData={setFormData}
+            submitting={submitting}
+            setSubmitting={setSubmitting}
+            post={post}
+            setPost={setPost}
+          />
+          <Exercise 
+            formData={formData}
+          />
         </div>
         <Information />
       </Container>
