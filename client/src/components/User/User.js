@@ -4,7 +4,6 @@ import { Alert, Button, debounce, Paper, TextField } from '@mui/material';
 import { styled } from "@mui/material/styles";
 import axios from 'axios';
 
-const baseUrl = "http://localhost:8888";
 let currentUsername;
 let isSubmitted = false;
 
@@ -39,7 +38,7 @@ const ColorButton = styled(Button)({
 
 
 
-const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost }) => {
+const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost, baseUrl }) => {
 
 
   // Call the Create User API with POST request
@@ -54,7 +53,12 @@ const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost 
         setPost(response.data)
         console.log(`createUser Response Data: ${JSON.stringify(response.data)}`)
         currentUsername = response.data;
-        console.log(`CurrentUsername: ${JSON.stringify(currentUsername)}`)
+        // setFormData({
+        //   username: formData.username,
+        //   userId: response.data._id
+        // })
+        formData.userId = response.data._id;
+        console.log(`CurrentUsername: ${JSON.stringify(currentUsername)}, formDataId: ${JSON.stringify(formData)}`)
       })
       .catch((error) => {
         console.log(`Error: ${error}, formData:${JSON.stringify(formData)}, post: ${JSON.stringify(post)}, type: ${typeof post}`)
@@ -91,12 +95,14 @@ const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost 
 
       // Call create user method
       let createUserResponse = createUser();
+      // getUserByUsername();
       console.log(`createUserResponse: ${JSON.stringify(post)}`);
       console.log('called createUser()');
 
       // Set Submitted to false after 3s
       setSubmitting(false);
-      isSubmitted=false;
+      // setSubmitting(false);
+      // isSubmitted=false;
       console.log('Called handleSubmit to false');
     }, 3000);
   }
@@ -122,7 +128,7 @@ const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost 
           className="user-paper"
           style={{ backgroundColor: '#fff9c4', paddingTop: '0.5em' }}
         >
-          <h3>Create a New User</h3>
+          <h3>Create or Get User</h3>
           <p className="endpoint user-endpoint">POST /api/users</p>
           <CssTextField
             required
@@ -149,7 +155,7 @@ const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost 
           <div>
             <br />
             <Alert variant="filled" severity="success">
-              Submitted Successfully!
+              User Created Successfully!
             </Alert>
           </div>
         }
