@@ -33,6 +33,15 @@
     background-color: white;
 }
 
+form {
+    display: grid;
+    justify-content: center;
+}
+
+ul {
+    text-align: start;
+}
+
 @media screen and (max-width: 450px) {
     .exercise-paper {
         width: 15em;
