@@ -81,7 +81,7 @@ router.get("/api/users", (req, res, next) => {
             res.status(422).json({
                 error: "Error retrieving user data. Please try again after sometime."
             });
-        } else if (Object.entries.length == 0) {
+        } else if (Object.entries.length === 0) {
             res.status(422).json({
                 error: "Error retrieving users"
             });
@@ -129,7 +129,7 @@ router.post("/api/users", (req, res, next) => {
             res.status(422).json({
                 error: "Username already taken. Please try again with another username."
             });
-        } else if (Object.entries.length == 0) {
+        } else if (Object.entries.length === 0) {
             res.status(422).json({
                 error: "Error creating user"
             });
@@ -180,7 +180,7 @@ router.get("/api/users/:_id", (req, res, next) => {
             res.status(400).json({
                 error: "User does not exists with provided id. Please try again with correct user id."
             });
-        } else if (Object.entries.length == 0) {
+        } else if (Object.entries.length === 0) {
             res.status(400).json({
                 error: "Error finding user"
             });
@@ -231,7 +231,7 @@ router.get("/api/username/:username", (req, res, next) => {
             res.status(400).json({
                 error: "User does not exists with provided username. Please try again with correct username."
             });
-        } else if (Object.entries.length == 0) {
+        } else if (Object.entries.length === 0) {
             res.status(400).json({
                 error: "Error finding user"
             });
@@ -246,12 +246,12 @@ router.get("/api/username/:username", (req, res, next) => {
 });
 
 // Add Exercise for User API Endpoint
-router.post("/api/users/:_id/exercise", (req, res, next) => {
+router.post("/api/users/:_id/exercises", (req, res, next) => {
     let exerciseInput = {
-        _id: req.body._id,
+        _id: req.body[':_id'] || req.params._id,
         description: req.body.description,
         duration: req.body.duration,
-        date: req.body.date
+        date: req.body.date || new Date().toDateString()
     };
     console.log(`Input body for exercise: ${JSON.stringify(exerciseInput)}`);
 
@@ -286,7 +286,7 @@ router.post("/api/users/:_id/exercise", (req, res, next) => {
             res.status(422).json({
                 error: "Error in add exericse response data"
             });
-        } else if (Object.entries.length == 0) {
+        } else if (Object.entries.length === 0) {
             res.status(422).json({
                 error: "Error adding exercise"
             });
@@ -297,7 +297,7 @@ router.post("/api/users/:_id/exercise", (req, res, next) => {
                 description: responseData.description,
                 duration: responseData.duration,
                 date: responseData.date,
-                _id: responseData.userId
+                _id: responseData._id
             });
         }
 
@@ -324,7 +324,7 @@ router.get("/api/users/:_id/logs", (req, res, next) => {
             res.status(400).json({
                 error: "Error getting exercise logs for user"
             });
-            done(null, { error: "Error getting exercise logs for user" });
+            // done(null, { error: "Error getting exercise logs for user" });
             return { error: "Error getting exercise logs for user" };
         }
         console.log(`ExerciseLog responseData: ${JSON.stringify(responseData)}`);

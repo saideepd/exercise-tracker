@@ -42,10 +42,10 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
     console.log('Called createExerciseLog()');
     console.log(`axios exerciseLog: ${JSON.stringify(exerciseLog)}`)
     // Add User id if payload object is missing _id
-    if (!exerciseLog.hasOwnProperty('_id'))
-      exerciseLog._id = formData.userId;
+    if (!exerciseLog.hasOwnProperty(':_id'))
+      exerciseLog[':_id'] = formData.userId;
 
-    await axios.post(`${baseUrl}/api/users/${formData.userId}/exercise`,
+    await axios.post(`${baseUrl}/api/users/${formData.userId}/exercises`,
       exerciseLog
     )
       .then((response) => {
@@ -117,7 +117,7 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
             required
             id="outlined-required"
             label="User Id"
-            name="_id"
+            name=":_id"
             placeholder=":_id"
             className="user-input"
             size="small"
