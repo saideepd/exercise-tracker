@@ -154,7 +154,6 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
             disabled={exerciseSubmit}
           />
           <CssTextField
-            required
             id="outlined-required"
             label="Date"
             name="date"
