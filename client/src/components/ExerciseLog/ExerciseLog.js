@@ -75,7 +75,7 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
     setTimeout(() => {
 
       // Call create exercise log method
-      let createExerciseLogResponse = createExerciseLog();
+      createExerciseLog();
 
       console.log('called createExerciseLog()');
 

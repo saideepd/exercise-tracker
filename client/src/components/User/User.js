@@ -77,6 +77,7 @@ const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost,
         console.log(`Error in getByUsername: ${error}, formData: ${formData.username}`);
       })
   };
+  console.log(`getUserByUsername: ${getUserByUsername}`);
 
 
   const handleSubmit = (event) => {
@@ -97,7 +98,7 @@ const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost,
       let createUserResponse = createUser();
       // getUserByUsername();
       console.log(`createUserResponse: ${JSON.stringify(post)}`);
-      console.log('called createUser()');
+      console.log(`called createUser(): ${createUserResponse}`);
 
       // Set Submitted to false after 3s
       setSubmitting(false);
