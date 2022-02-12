@@ -1,11 +1,3 @@
-[build]
-    functions="server/functions"
-
-[[redirects]]
-    from="/*"
-    to="/.netlify/functions/server/:splat"
-    status=200
-    
 [[headers]]
   for = "/*"
   [headers.values]
