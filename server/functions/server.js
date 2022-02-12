@@ -249,12 +249,12 @@ router.get("/api/username/:username", (req, res, next) => {
 });
 
 // Add Exercise for User API Endpoint
-router.post("/api/users/:_id/exercise", (req, res, next) => {
+router.post("/api/users/:_id/exercises", (req, res, next) => {
     let exerciseInput = {
-        _id: req.body._id,
+        _id: req.body[':_id'] || req.params._id,
         description: req.body.description,
         duration: req.body.duration,
-        date: req.body.date
+        date: req.body.date || new Date().toDateString()
     };
     console.log(`Input body for exercise: ${JSON.stringify(exerciseInput)}`);
 
@@ -300,7 +300,7 @@ router.post("/api/users/:_id/exercise", (req, res, next) => {
                 description: responseData.description,
                 duration: responseData.duration,
                 date: responseData.date,
-                _id: responseData.userId
+                _id: responseData._id
             });
         }
 

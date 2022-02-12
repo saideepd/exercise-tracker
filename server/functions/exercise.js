@@ -50,11 +50,11 @@ const addExercise = (input, done) => {
         // Only using username from FindUserById response
         // rest all the data is used from user input
         let exerciseObject = Exercise({
+            userId: input._id,
             username: res.username,
-            description: input.description,
-            duration: input.duration,
             date: input.date,
-            userId: input._id
+            duration: input.duration,
+            description: input.description
         });
 
         console.log(`ExerciseObject: ${exerciseObject}`);
