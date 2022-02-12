@@ -33,6 +33,8 @@ app.use(function (req, res, next) {
     next();
 });
 
+// app.use(express.static(path.join(__dirname, '../../build')));
+
 // Connect to Mongo DB
 let connection = mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -43,6 +45,7 @@ router.get("/", (req, res) => {
     res.json({
         message: "Hello from Exercise Tracker!"
     });
+    // res.sendFile(path.join(__dirname, '../../build', 'index.html'));
 });
 
 // Default API Endpoint
@@ -81,7 +84,7 @@ router.get("/api/users", (req, res, next) => {
             res.status(422).json({
                 error: "Error retrieving user data. Please try again after sometime."
             });
-        } else if (Object.entries.length == 0) {
+        } else if (Object.entries.length === 0) {
             res.status(422).json({
                 error: "Error retrieving users"
             });
@@ -129,7 +132,7 @@ router.post("/api/users", (req, res, next) => {
             res.status(422).json({
                 error: "Username already taken. Please try again with another username."
             });
-        } else if (Object.entries.length == 0) {
+        } else if (Object.entries.length === 0) {
             res.status(422).json({
                 error: "Error creating user"
             });
@@ -180,7 +183,7 @@ router.get("/api/users/:_id", (req, res, next) => {
             res.status(400).json({
                 error: "User does not exists with provided id. Please try again with correct user id."
             });
-        } else if (Object.entries.length == 0) {
+        } else if (Object.entries.length === 0) {
             res.status(400).json({
                 error: "Error finding user"
             });
@@ -231,7 +234,7 @@ router.get("/api/username/:username", (req, res, next) => {
             res.status(400).json({
                 error: "User does not exists with provided username. Please try again with correct username."
             });
-        } else if (Object.entries.length == 0) {
+        } else if (Object.entries.length === 0) {
             res.status(400).json({
                 error: "Error finding user"
             });
@@ -286,7 +289,7 @@ router.post("/api/users/:_id/exercise", (req, res, next) => {
             res.status(422).json({
                 error: "Error in add exericse response data"
             });
-        } else if (Object.entries.length == 0) {
+        } else if (Object.entries.length === 0) {
             res.status(422).json({
                 error: "Error adding exercise"
             });
@@ -324,7 +327,7 @@ router.get("/api/users/:_id/logs", (req, res, next) => {
             res.status(400).json({
                 error: "Error getting exercise logs for user"
             });
-            done(null, { error: "Error getting exercise logs for user" });
+            // done(null, { error: "Error getting exercise logs for user" });
             return { error: "Error getting exercise logs for user" };
         }
         console.log(`ExerciseLog responseData: ${JSON.stringify(responseData)}`);
@@ -334,8 +337,8 @@ router.get("/api/users/:_id/logs", (req, res, next) => {
 
 
 
-// app.listen(PORT, () => {
-//     console.log(`Server is listening on ${PORT}`);
-// });
+app.listen(PORT, () => {
+    console.log(`Server is listening on ${PORT}`);
+});
 // module.exports = app;
 module.exports.handler = serverless(app);

@@ -6,7 +6,10 @@ import User from './components/User/User';
 import Exercise from './components/ExerciseLog/ExerciseLog';
 import { Container } from '@mui/material';
 
-const baseUrl = "http://localhost:8888";
+const config = require('../package.json');
+
+// Accessing API server URL from central package.json config file
+const baseUrl = config.proxy;
 
 function App() {
 
