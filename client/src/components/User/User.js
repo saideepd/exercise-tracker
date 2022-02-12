@@ -67,17 +67,16 @@ const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost,
 
 
   // Get the user by username
-  const getUserByUsername = async () => {
-    console.log(`Inside getByUsername: ${formData.username}`);
-    await axios.get(`${baseUrl}/api/username/${formData.username}`)
-      .then((response) => {
-        setPost(response.data)
-      })
-      .catch((error) => {
-        console.log(`Error in getByUsername: ${error}, formData: ${formData.username}`);
-      })
-  };
-  console.log(`getUserByUsername: ${getUserByUsername}`);
+  // const getUserByUsername = async () => {
+  //   console.log(`Inside getByUsername: ${formData.username}`);
+  //   await axios.get(`${baseUrl}/api/username/${formData.username}`)
+  //     .then((response) => {
+  //       setPost(response.data)
+  //     })
+  //     .catch((error) => {
+  //       console.log(`Error in getByUsername: ${error}, formData: ${formData.username}`);
+  //     })
+  // };
 
 
   const handleSubmit = (event) => {
@@ -95,10 +94,10 @@ const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost,
     setTimeout(() => {
 
       // Call create user method
-      let createUserResponse = createUser();
+      createUser();
       // getUserByUsername();
       console.log(`createUserResponse: ${JSON.stringify(post)}`);
-      console.log(`called createUser(): ${createUserResponse}`);
+      console.log(`called createUser()`);
 
       // Set Submitted to false after 3s
       setSubmitting(false);
