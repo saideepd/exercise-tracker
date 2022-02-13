@@ -116,7 +116,7 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
           <CssTextField
             required
             id="outlined-required"
-            label="User Id"
+            label="User Id (auto-filled)"
             name=":_id"
             placeholder=":_id"
             className="user-input"
@@ -125,7 +125,7 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
             title="User Id will be auto-filled"
             value={!isSubmitted ? "" : formData.userId}
             onChange={handleUserExercise}
-            disabled={exerciseSubmit}
+            disabled
           />
           <CssTextField
             required
@@ -175,19 +175,6 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
             Submit
           </ColorButton>
         </Paper>
-        {/* {isSubmitted &&
-          console.log(`Exercise currentUsername: ${JSON.stringify(currentUsername)}, formData: ${JSON.stringify(formData)}`)
-          // <div>
-          //   <ul>
-          //     {currentUsername !== null && (
-          //       <li key={currentUsername._id}><strong>_id:</strong> {currentUsername._id}</li>
-          //     )}
-          //     {currentUsername !== null && (
-          //       <li key={currentUsername.username}><strong>username:</strong> {currentUsername.username}</li>
-          //     )}
-          //   </ul>
-          // </div>
-        } */}
         {exerciseSubmit &&
           <div>
             <br />

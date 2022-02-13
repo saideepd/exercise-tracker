@@ -8,8 +8,8 @@ import { Container } from '@mui/material';
 
 const config = require('../package.json');
 
-// Accessing API server URL from central package.json config file
-const baseUrl = config.proxy;
+// Accessing API server URL from central package.json con fig file
+const baseUrl = process.env.BASE_URL || config.proxy;
 
 function App() {
 

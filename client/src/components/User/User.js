@@ -97,7 +97,7 @@ const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost,
       createUser();
       // getUserByUsername();
       console.log(`createUserResponse: ${JSON.stringify(post)}`);
-      console.log(`called createUser()`);
+      console.log('called createUser()');
 
       // Set Submitted to false after 3s
       setSubmitting(false);

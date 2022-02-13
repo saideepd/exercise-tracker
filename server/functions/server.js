@@ -296,7 +296,7 @@ router.post("/api/users/:_id/exercises", (req, res, next) => {
                 username: responseData.username,
                 description: responseData.description,
                 duration: responseData.duration,
-                date: responseData.date,
+                date: responseData.date.toDateString(),
                 _id: responseData._id
             });
         }
