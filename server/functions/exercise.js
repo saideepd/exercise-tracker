@@ -107,7 +107,7 @@ const getExerciseLog = (input, done) => {
         // Default values if undefined, blank or no input provided
         fromDate = fromDate === undefined || "" || " " ? 0 : fromDate;
         toDate = toDate === undefined || "" || " " ? 10000000000000 : toDate;
-        limit = limit === undefined || "" || " " ? logFound.length : limit;
+        limit = limit === undefined ? logFound.length : limit;
 
         // Filter the logs between fromDate & toDate
         // Then sort the logs by ascending order of log date
@@ -117,7 +117,7 @@ const getExerciseLog = (input, done) => {
             .sort((firstDate, secondDate) => firstDate.date - secondDate.date)
             .filter(exerciseLog => exerciseLog.date >= new Date(fromDate))
             .filter(exerciseLog => exerciseLog.date <= new Date(toDate))
-            .slice(0, limit || logFound.length)
+            .slice(0, limit)
             .map((item) => {
                 log.push({
                     description: item.description,
