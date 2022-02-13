@@ -40,6 +40,7 @@ const ColorButton = styled(Button)({
 let isUserLogRequested = false;
 let usernameResponse;
 let userLogsResponse;
+let userFound = false;
 
 const Logs = ({ baseUrl, submitLogs, setSubmitLogs, userLogs, setUserLogs, userData, setUserData, logsFormData, setLogsFormData }) => {
 
@@ -50,8 +51,10 @@ const Logs = ({ baseUrl, submitLogs, setSubmitLogs, userLogs, setUserLogs, userD
             .then((response) => {
                 setUserData(response.data)
                 usernameResponse = response.data;
+                userFound = true;
             })
             .catch((error) => {
+                userFound = false;
                 console.log(`Error in getByUsername: ${error}, username: ${logsFormData.username}`);
             })
 
@@ -62,16 +65,18 @@ const Logs = ({ baseUrl, submitLogs, setSubmitLogs, userLogs, setUserLogs, userD
         console.log(`Called getUserLogs() method: ${logsFormData.username}`);
         await getUserByUsername();
 
-        console.log(`getByUsername Response: ${JSON.stringify(userData)}, usernameResponse: ${JSON.stringify(usernameResponse)}`);
-        await axios.get(`${baseUrl}/api/users/${usernameResponse._id}/logs`)
-            .then((response) => {
-                setUserLogs(response.data)
-                userLogsResponse = response.data;
-                console.log(`getUserLogs Response Data: ${JSON.stringify(userLogs)}, Only Logs: ${JSON.stringify(userLogs.log)}, userLogsResponse: ${JSON.stringify(userLogsResponse.log)}`);
-            })
-            .catch((error) => {
-                console.log(`Error in getUserLogs: ${error}, username: {username}`);
-            })
+        if (userFound) {
+            console.log(`getByUsername Response: ${JSON.stringify(userData)}, usernameResponse: ${JSON.stringify(usernameResponse)}`);
+            await axios.get(`${baseUrl}/api/users/${usernameResponse._id}/logs`)
+                .then((response) => {
+                    setUserLogs(response.data)
+                    userLogsResponse = response.data;
+                    console.log(`getUserLogs Response Data: ${JSON.stringify(userLogs)}, Only Logs: ${JSON.stringify(userLogs.log)}, userLogsResponse: ${JSON.stringify(userLogsResponse.log)}`);
+                })
+                .catch((error) => {
+                    console.log(`Error in getUserLogs: ${error}, username: {username}`);
+                })
+        }
     };
 
 
@@ -80,7 +85,11 @@ const Logs = ({ baseUrl, submitLogs, setSubmitLogs, userLogs, setUserLogs, userD
         // Setting submit to true in 0.1s
         setTimeout(() => {
             console.log('Called HandleSubmit to true')
+            // Set isUserLogRequested & userFound to false 
+            // to remove the Alerts & old data from UI
             isUserLogRequested = false;
+            userFound = false;
+
             setSubmitLogs(true);
             isUserLogRequested = true;
 
@@ -115,7 +124,7 @@ const Logs = ({ baseUrl, submitLogs, setSubmitLogs, userLogs, setUserLogs, userD
     }, 500);
 
 
-    console.log(`Inside json2table: ${JSON.stringify(userLogsResponse)}, typeof: ${typeof userLogsResponse}`)
+    // console.log(`Inside json2table: ${JSON.stringify(userLogsResponse)}, typeof: ${typeof userLogsResponse}`)
     const tableData = userLogsResponse !== undefined && userLogsResponse.log.map((logItem) => {
         return (
             <tr key={logItem.description + logItem.date + Math.random().toFixed(2)}>
@@ -168,7 +177,16 @@ const Logs = ({ baseUrl, submitLogs, setSubmitLogs, userLogs, setUserLogs, userD
                         </Alert>
                     </div>
                 }
-                {isUserLogRequested &&
+                {/* Only display error alert when logs are requested and user is not found */}
+                {isUserLogRequested && !userFound &&
+                    <div>
+                        <br />
+                        <Alert variant="filled" severity="error" color="error">
+                            Uh-oh... User "{logsFormData.username}" not found!
+                        </Alert>
+                    </div>
+                }
+                {isUserLogRequested && userFound &&
                     <div className="table">
                         <table>
                             <thead>
