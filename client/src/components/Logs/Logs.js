@@ -67,7 +67,7 @@ const Logs = ({ baseUrl, submitLogs, setSubmitLogs, userLogs, setUserLogs, userD
 
         if (userFound) {
             console.log(`getByUsername Response: ${JSON.stringify(userData)}, usernameResponse: ${JSON.stringify(usernameResponse)}`);
-            await axios.get(`${baseUrl}/api/users/${usernameResponse._id}/logs`)
+            await axios.get(`${baseUrl}/api/users/${usernameResponse._id}/logs?from=${logsFormData.fromDate}&to=${logsFormData.toDate}&limit=${logsFormData.limit}`)
                 .then((response) => {
                     setUserLogs(response.data)
                     userLogsResponse = response.data;
@@ -156,6 +156,43 @@ const Logs = ({ baseUrl, submitLogs, setSubmitLogs, userLogs, setUserLogs, userD
                         size="small"
                         margin="dense"
                         title="Enter your username"
+                        onChange={handleUserLogs}
+                        disabled={submitLogs}
+                    />
+                    <CssTextField
+                        id="outlined-required"
+                        label="From Date"
+                        name="fromDate"
+                        placeholder="From Date (yyyy-mm-dd)"
+                        className="user-input"
+                        size="small"
+                        margin="dense"
+                        title="Enter from date"
+                        onChange={handleUserLogs}
+                        disabled={submitLogs}
+                    />
+                    <CssTextField
+                        id="outlined-required"
+                        label="To Date"
+                        name="toDate"
+                        placeholder="To Date (yyyy-mm-dd)"
+                        className="user-input"
+                        size="small"
+                        margin="dense"
+                        title="Enter to date"
+                        onChange={handleUserLogs}
+                        disabled={submitLogs}
+                    />
+                    <CssTextField
+                        id="outlined-required"
+                        label="Number of logs"
+                        name="limit"
+                        placeholder="Limit"
+                        className="user-input"
+                        size="small"
+                        margin="dense"
+                        title="Enter number to limit logs"
+                        type="number"
                         onChange={handleUserLogs}
                         disabled={submitLogs}
                     />
