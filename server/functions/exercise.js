@@ -104,14 +104,19 @@ const getExerciseLog = (input, done) => {
 
         console.log(`Successfully found exercise logs for user: ${logFound}`);
 
+        // Default values if undefined, blank or no input provided
+        fromDate = fromDate === undefined || "" || " " ? 0 : fromDate;
+        toDate = toDate === undefined || "" || " " ? 10000000000000 : toDate;
+        limit = limit === undefined || "" || " " ? logFound.length : limit;
+
         // Filter the logs between fromDate & toDate
         // Then sort the logs by ascending order of log date
         // Finally just pick & push the required properties to log[]
         let log = [];
         logFound
             .sort((firstDate, secondDate) => firstDate.date - secondDate.date)
-            .filter(exerciseLog => exerciseLog.date >= new Date(fromDate || 0))
-            .filter(exerciseLog => exerciseLog.date <= new Date(toDate || 10000000000000))
+            .filter(exerciseLog => exerciseLog.date >= new Date(fromDate))
+            .filter(exerciseLog => exerciseLog.date <= new Date(toDate))
             .slice(0, limit || logFound.length)
             .map((item) => {
                 log.push({
