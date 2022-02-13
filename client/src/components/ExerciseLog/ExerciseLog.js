@@ -6,6 +6,9 @@ import { isSubmitted } from '../User/User';
 import axios from 'axios';
 
 const CssTextField = styled(TextField)({
+  '& label.MuiInputLabel-root': {
+      color: '#0026ca',
+  },
   '& label.Mui-focused': {
     color: 'red',
   },
@@ -33,7 +36,6 @@ const ColorButton = styled(Button)({
   }
 });
 
-// let exerciseLogArray = [];
 
 const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, setExerciseSubmit, exerciseLog, setExerciseLog, log, setLog }) => {
 
@@ -91,10 +93,7 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
       name: event.target.name,
       value: event.target.value
     });
-    // let [key, value] = [event.target.name, event.target.value];
-    // exerciseLogArray.push(...exerciseLogArray, {key: value})
-    console.log(`Exercise name: ${event.target.name}, value: ${event.target.value}`);
-    // console.log(`Exercise key: ${key}, value: ${value}`);
+    // console.log(`Exercise name: ${event.target.name}, value: ${event.target.value}`);
   }
 
   const handleUserExercise = debounce((event) => {
@@ -109,9 +108,9 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
         <Paper
           elevation={3}
           className="exercise-paper"
-          style={{ backgroundColor: '#fff9c4', paddingTop: '0.5em' }}
+          style={{ backgroundColor: '#c0cfff', paddingTop: '0.5em' }}
         >
-          <h3>Add exercises</h3>
+          <h3>Add Exercises</h3>
           <p className="endpoint exercise-endpoint">POST /api/users/:_id/exercises</p>
           <CssTextField
             required
@@ -149,6 +148,7 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
             className="user-input"
             size="small"
             margin="dense"
+            type="number"
             title="How long did you exercised?"
             onChange={handleUserExercise}
             disabled={exerciseSubmit}

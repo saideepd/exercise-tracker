@@ -8,6 +8,9 @@ let currentUsername;
 let isSubmitted = false;
 
 const CssTextField = styled(TextField)({
+  '& label.MuiInputLabel-root': {
+      color: '#0026ca',
+  },
   '& label.Mui-focused': {
     color: 'red',
   },
@@ -126,7 +129,7 @@ const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost,
         <Paper
           elevation={3}
           className="user-paper"
-          style={{ backgroundColor: '#fff9c4', paddingTop: '0.5em' }}
+          style={{ backgroundColor: '#c0cfff', paddingTop: '0.5em' }}
         >
           <h3>Create or Get User</h3>
           <p className="endpoint user-endpoint">POST /api/users</p>
