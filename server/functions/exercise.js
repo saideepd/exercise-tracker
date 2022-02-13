@@ -109,9 +109,10 @@ const getExerciseLog = (input, done) => {
         // Finally just pick & push the required properties to log[]
         let log = [];
         logFound
+            .sort((firstDate, secondDate) => firstDate.date - secondDate.date)
             .filter(exerciseLog => exerciseLog.date >= new Date(fromDate))
             .filter(exerciseLog => exerciseLog.date <= new Date(toDate))
-            .sort((firstDate, secondDate) => firstDate.date > secondDate.date)
+            .slice(0, limit)
             .map((item) => {
                 log.push({
                     description: item.description,
@@ -130,7 +131,7 @@ const getExerciseLog = (input, done) => {
         };
         done(null, logResponseObject);
         return logResponseObject;
-    }).limit(limit);
+    });
 }
 
 exports.ExerciseModel = Exercise;
