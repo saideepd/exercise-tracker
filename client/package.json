@@ -1,6 +1,7 @@
 {
   "name": "exercise-tracker-app",
   "version": "0.1.0",
+  "description": "A simple app used to log & track different exercises done by a user",
   "private": true,
   "proxy": "https://fittracker-api.netlify.app",
   "dependencies": {
