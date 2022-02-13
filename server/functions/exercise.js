@@ -110,9 +110,9 @@ const getExerciseLog = (input, done) => {
         let log = [];
         logFound
             .sort((firstDate, secondDate) => firstDate.date - secondDate.date)
-            .filter(exerciseLog => exerciseLog.date >= new Date(fromDate))
-            .filter(exerciseLog => exerciseLog.date <= new Date(toDate))
-            .slice(0, limit)
+            .filter(exerciseLog => exerciseLog.date >= new Date(fromDate || 0))
+            .filter(exerciseLog => exerciseLog.date <= new Date(toDate || 10000000000000))
+            .slice(0, limit || logFound.length)
             .map((item) => {
                 log.push({
                     description: item.description,
