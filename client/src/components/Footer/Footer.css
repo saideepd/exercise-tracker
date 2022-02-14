@@ -1,0 +1,29 @@
+.footer-container {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2vh 4vw 2vh 5vh;
+}
+
+.creator {
+    font-size: small;
+    justify-content: center;
+}
+
+.icon-attribution {
+    float: right;
+    font-size: 0.5em;
+}
+
+img {
+    height: 1.25em;
+    vertical-align: sub;
+}
+
+
+@media screen and (max-width: 450px) {
+    .footer-container {
+        padding: 1vh 2vw 2vh 2vh;
+    }    
+}

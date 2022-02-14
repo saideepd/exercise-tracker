@@ -5,6 +5,7 @@ import Information from './components/Information/Information';
 import User from './components/User/User';
 import Exercise from './components/ExerciseLog/ExerciseLog';
 import Logs from './components/Logs/Logs';
+import Footer from './components/Footer/Footer';
 import { Container } from '@mui/material';
 
 const config = require('../package.json');
@@ -87,6 +88,7 @@ function App() {
           />
         </div>
         <Information />
+        <Footer/>
       </Container>
     </div>
   );
