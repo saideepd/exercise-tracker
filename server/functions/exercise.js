@@ -88,6 +88,10 @@ const getExerciseLog = (input, done) => {
     let { userId, from: fromDate = 0, to: toDate = 10000000000000, limit } = JSON.parse(logInput);
     console.log(`Exercise Log Input Values: ${userId}, ${fromDate}, ${toDate}, ${limit}`);
 
+    // Default values if undefined, blank or no input provided
+    fromDate = ((fromDate === "" || typeof fromDate === "undefined") ? new Date(0).toISOString().split('T')[0] : fromDate);
+    toDate = ((toDate === "" || typeof toDate === "undefined") ? new Date(10000000000000).toISOString().split('T')[0] : toDate);
+        
     // Find Exercise logs for user by querying using UserId
     Exercise.find({
         userId: { $eq: userId }
@@ -105,18 +109,17 @@ const getExerciseLog = (input, done) => {
         console.log(`Successfully found exercise logs for user: ${logFound}`);
 
         // Default values if undefined, blank or no input provided
-        fromDate = fromDate === undefined || "" || " " ? 0 : fromDate;
-        toDate = toDate === undefined || "" || " " ? 10000000000000 : toDate;
-        limit = limit === undefined ? logFound.length : limit;
+        limit = ((limit === "" || typeof limit === "undefined") ? Object.keys(logFound).length : limit);
 
         // Filter the logs between fromDate & toDate
         // Then sort the logs by ascending order of log date
         // Finally just pick & push the required properties to log[]
         let log = [];
         logFound
-            .sort((firstDate, secondDate) => firstDate.date - secondDate.date)
+            .sort((firstDate, secondDate) => new Date(firstDate.date) - new Date(secondDate.date))
             .filter(exerciseLog => exerciseLog.date >= new Date(fromDate))
             .filter(exerciseLog => exerciseLog.date <= new Date(toDate))
+        logFound
             .slice(0, limit)
             .map((item) => {
                 log.push({
