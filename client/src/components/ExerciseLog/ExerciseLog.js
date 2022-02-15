@@ -142,20 +142,21 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
           <CssTextField
             required
             id="outlined-required"
-            label="Duration"
+            label="Duration (mins.)"
             name="duration"
             placeholder="Duration (mins.)"
             className="user-input"
             size="small"
             margin="dense"
             type="number"
+            InputProps={{ inputProps: { min: "0" } }}
             title="How long did you exercised?"
             onChange={handleUserExercise}
             disabled={exerciseSubmit}
           />
           <CssTextField
             id="outlined-required"
-            label="Date"
+            label="Date (yyyy-mm-dd)"
             name="date"
             placeholder="Date (yyyy-mm-dd)"
             className="user-input"

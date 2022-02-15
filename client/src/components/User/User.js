@@ -141,6 +141,7 @@ const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost,
             placeholder="username"
             className="user-input"
             size="small"
+            title="Enter your username"
             onChange={(event) => handleText(event)}
             disabled={submitting}
           />
