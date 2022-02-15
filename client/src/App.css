@@ -55,6 +55,24 @@ li {
   list-style-type: none;
 }
 
+@media screen and (max-width: 1150px) {
+  .user-exercise-form {
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    justify-content: flex-start;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .user-exercise-form {
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    justify-content: center;
+  }
+}
+
 @media screen and (max-width: 450px) {
   .user-exercise-form {
     display: flex;

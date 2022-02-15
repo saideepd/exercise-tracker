@@ -9,3 +9,9 @@
     padding: 0.25em;
     width: max-content;
 }
+
+@media screen and (max-width: 450px) {
+    .information p:nth-child(1) span {
+        line-height: 1.5em;
+    }
+}
