@@ -1,8 +1,13 @@
 {
   "name": "exercise-tracker-app",
   "version": "0.1.0",
+  "description": "A simple app used to log & track different exercises done by a user",
   "private": true,
+  "proxy": "https://fittracker-api.netlify.app",
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/material": "^5.4.1",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",

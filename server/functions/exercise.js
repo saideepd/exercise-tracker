@@ -88,6 +88,11 @@ const getExerciseLog = (input, done) => {
     let { userId, from: fromDate = 0, to: toDate = 10000000000000, limit } = JSON.parse(logInput);
     console.log(`Exercise Log Input Values: ${userId}, ${fromDate}, ${toDate}, ${limit}`);
 
+    // Default values if undefined, blank or no input provided
+    fromDate = ((fromDate === "" || fromDate === "undefined") ? new Date(0).toISOString().split('T')[0] : fromDate);
+    toDate = ((toDate === "" || toDate === "undefined") ? new Date(10000000000000).toISOString().split('T')[0] : toDate);
+    limit = ((limit === "" || limit === "undefined" || limit === undefined) ? Number.MAX_SAFE_INTEGER : limit);
+    
     // Find Exercise logs for user by querying using UserId
     Exercise.find({
         userId: { $eq: userId }
@@ -102,16 +107,26 @@ const getExerciseLog = (input, done) => {
             };
         }
 
+        // Return blank object if there are no logs found for user
+        if(Object.keys(logFound).length === 0) {
+            console.log(`No logs found for user ${userId}: ${JSON.stringify(logFound)}`);
+            done(null, {});
+            return {};
+        }
+
         console.log(`Successfully found exercise logs for user: ${logFound}`);
+
 
         // Filter the logs between fromDate & toDate
         // Then sort the logs by ascending order of log date
         // Finally just pick & push the required properties to log[]
         let log = [];
+        // logFound
+        //     // .sort((firstDate, secondDate) => new Date(firstDate.date) - new Date(secondDate.date))
+        //     .filter(exerciseLog => exerciseLog.date.toISOString() > new Date(fromDate).toISOString())
+        //     .filter(exerciseLog => exerciseLog.date.toISOString() < new Date(toDate).toISOString())
         logFound
-            .filter(exerciseLog => exerciseLog.date >= new Date(fromDate))
-            .filter(exerciseLog => exerciseLog.date <= new Date(toDate))
-            .sort((firstDate, secondDate) => firstDate.date > secondDate.date)
+            // .slice(0, limit)
             .map((item) => {
                 log.push({
                     description: item.description,
@@ -130,7 +145,10 @@ const getExerciseLog = (input, done) => {
         };
         done(null, logResponseObject);
         return logResponseObject;
-    }).limit(limit);
+    }).sort({date: 'asc'})
+        .gte('date', new Date(fromDate).toISOString())
+        .lte('date', new Date(toDate).toISOString())
+        .limit(+limit);
 }
 
 exports.ExerciseModel = Exercise;

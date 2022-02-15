@@ -1,0 +1,100 @@
+.logs-component {
+    margin: 1em;
+}
+
+.logs-paper {
+    width: 18em;
+    height: max-content;
+    padding: 2em;
+    border: 2px solid #304ffe;
+    background-color: #fff9c4;
+    display: flex;
+    flex-direction: column;
+}
+
+.logs-endpoint {
+    background-color: #7986cb;
+    font-family: 'Courier New', Courier, monospace;
+    color: #000000;
+    padding: 0.25em;
+    width: max-content;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#get-exerciselog-btn {
+    margin-top: 1em;
+}
+
+.user-input {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    background-color: white;
+}
+
+form {
+    display: grid;
+    justify-content: center;
+}
+
+ul {
+    text-align: start;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+thead {
+    background-color: #304ffe;
+    color: #ffffff;
+}
+
+th, td {
+    border-bottom: 1px solid #bbb;
+}
+
+tr:nth-child(even) {
+    background-color: #c0cfff;
+}
+
+.table {
+    overflow-x: auto;
+    margin-top: 1em;
+}
+
+@media screen and (max-width: 1150px) {
+    .logs-component {
+        display: flex;
+        flex-direction: row;
+        width: auto;
+    }
+
+    form {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        column-gap: 3em;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .logs-paper {
+        width: 15em;
+        padding: 2em;
+    }
+
+    .logs-endpoint {
+        width: auto;
+    }
+}

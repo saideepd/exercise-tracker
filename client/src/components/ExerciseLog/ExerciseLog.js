@@ -6,6 +6,9 @@ import { isSubmitted } from '../User/User';
 import axios from 'axios';
 
 const CssTextField = styled(TextField)({
+  '& label.MuiInputLabel-root': {
+      color: '#0026ca',
+  },
   '& label.Mui-focused': {
     color: 'red',
   },
@@ -33,7 +36,6 @@ const ColorButton = styled(Button)({
   }
 });
 
-// let exerciseLogArray = [];
 
 const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, setExerciseSubmit, exerciseLog, setExerciseLog, log, setLog }) => {
 
@@ -75,7 +77,7 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
     setTimeout(() => {
 
       // Call create exercise log method
-      let createExerciseLogResponse = createExerciseLog();
+      createExerciseLog();
 
       console.log('called createExerciseLog()');
 
@@ -91,10 +93,7 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
       name: event.target.name,
       value: event.target.value
     });
-    // let [key, value] = [event.target.name, event.target.value];
-    // exerciseLogArray.push(...exerciseLogArray, {key: value})
-    console.log(`Exercise name: ${event.target.name}, value: ${event.target.value}`);
-    // console.log(`Exercise key: ${key}, value: ${value}`);
+    // console.log(`Exercise name: ${event.target.name}, value: ${event.target.value}`);
   }
 
   const handleUserExercise = debounce((event) => {
@@ -109,14 +108,14 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
         <Paper
           elevation={3}
           className="exercise-paper"
-          style={{ backgroundColor: '#fff9c4', paddingTop: '0.5em' }}
+          style={{ backgroundColor: '#c0cfff', paddingTop: '0.5em' }}
         >
-          <h3>Add exercises</h3>
+          <h3>Add Exercises</h3>
           <p className="endpoint exercise-endpoint">POST /api/users/:_id/exercises</p>
           <CssTextField
             required
             id="outlined-required"
-            label="User Id"
+            label="User Id (auto-filled)"
             name=":_id"
             placeholder=":_id"
             className="user-input"
@@ -125,7 +124,7 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
             title="User Id will be auto-filled"
             value={!isSubmitted ? "" : formData.userId}
             onChange={handleUserExercise}
-            disabled={exerciseSubmit}
+            disabled
           />
           <CssTextField
             required
@@ -143,19 +142,21 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
           <CssTextField
             required
             id="outlined-required"
-            label="Duration"
+            label="Duration (mins.)"
             name="duration"
             placeholder="Duration (mins.)"
             className="user-input"
             size="small"
             margin="dense"
+            type="number"
+            InputProps={{ inputProps: { min: "0" } }}
             title="How long did you exercised?"
             onChange={handleUserExercise}
             disabled={exerciseSubmit}
           />
           <CssTextField
             id="outlined-required"
-            label="Date"
+            label="Date (yyyy-mm-dd)"
             name="date"
             placeholder="Date (yyyy-mm-dd)"
             className="user-input"
@@ -175,19 +176,6 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
             Submit
           </ColorButton>
         </Paper>
-        {/* {isSubmitted &&
-          console.log(`Exercise currentUsername: ${JSON.stringify(currentUsername)}, formData: ${JSON.stringify(formData)}`)
-          // <div>
-          //   <ul>
-          //     {currentUsername !== null && (
-          //       <li key={currentUsername._id}><strong>_id:</strong> {currentUsername._id}</li>
-          //     )}
-          //     {currentUsername !== null && (
-          //       <li key={currentUsername.username}><strong>username:</strong> {currentUsername.username}</li>
-          //     )}
-          //   </ul>
-          // </div>
-        } */}
         {exerciseSubmit &&
           <div>
             <br />

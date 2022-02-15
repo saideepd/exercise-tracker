@@ -8,6 +8,9 @@ let currentUsername;
 let isSubmitted = false;
 
 const CssTextField = styled(TextField)({
+  '& label.MuiInputLabel-root': {
+      color: '#0026ca',
+  },
   '& label.Mui-focused': {
     color: 'red',
   },
@@ -67,16 +70,16 @@ const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost,
 
 
   // Get the user by username
-  const getUserByUsername = async () => {
-    console.log(`Inside getByUsername: ${formData.username}`);
-    await axios.get(`${baseUrl}/api/username/${formData.username}`)
-      .then((response) => {
-        setPost(response.data)
-      })
-      .catch((error) => {
-        console.log(`Error in getByUsername: ${error}, formData: ${formData.username}`);
-      })
-  };
+  // const getUserByUsername = async () => {
+  //   console.log(`Inside getByUsername: ${formData.username}`);
+  //   await axios.get(`${baseUrl}/api/username/${formData.username}`)
+  //     .then((response) => {
+  //       setPost(response.data)
+  //     })
+  //     .catch((error) => {
+  //       console.log(`Error in getByUsername: ${error}, formData: ${formData.username}`);
+  //     })
+  // };
 
 
   const handleSubmit = (event) => {
@@ -94,7 +97,7 @@ const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost,
     setTimeout(() => {
 
       // Call create user method
-      let createUserResponse = createUser();
+      createUser();
       // getUserByUsername();
       console.log(`createUserResponse: ${JSON.stringify(post)}`);
       console.log('called createUser()');
@@ -126,7 +129,7 @@ const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost,
         <Paper
           elevation={3}
           className="user-paper"
-          style={{ backgroundColor: '#fff9c4', paddingTop: '0.5em' }}
+          style={{ backgroundColor: '#c0cfff', paddingTop: '0.5em' }}
         >
           <h3>Create or Get User</h3>
           <p className="endpoint user-endpoint">POST /api/users</p>
@@ -138,6 +141,7 @@ const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost,
             placeholder="username"
             className="user-input"
             size="small"
+            title="Enter your username"
             onChange={(event) => handleText(event)}
             disabled={submitting}
           />

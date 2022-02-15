@@ -4,9 +4,14 @@ import Header from './components/Header/Header';
 import Information from './components/Information/Information';
 import User from './components/User/User';
 import Exercise from './components/ExerciseLog/ExerciseLog';
+import Logs from './components/Logs/Logs';
+import Footer from './components/Footer/Footer';
 import { Container } from '@mui/material';
 
-const baseUrl = "http://localhost:8888";
+const config = require('../package.json');
+
+// Accessing API server URL from central package.json con fig file
+const baseUrl = process.env.BASE_URL || config.proxy;
 
 function App() {
 
@@ -36,6 +41,12 @@ function App() {
   const [exerciseLog, setExerciseLog] = useReducer(formReducer, {});
   const [log, setLog] = useState({});
 
+  // Logs variables
+  const [submitLogs, setSubmitLogs] = useState(false);
+  const [userLogs, setUserLogs] = useState({});
+  const [userData, setUserData] = useState(null);
+  const [logsFormData, setLogsFormData] = useReducer(formReducer, {});
+
   return (
     <div className="App">
       <Container
@@ -64,8 +75,20 @@ function App() {
             log={log}
             setLog={setLog}
           />
+          <Logs
+            baseUrl={baseUrl}
+            submitLogs={submitLogs}
+            setSubmitLogs={setSubmitLogs}
+            userLogs={userLogs}
+            setUserLogs={setUserLogs}
+            userData={userData}
+            setUserData={setUserData}
+            logsFormData={logsFormData}
+            setLogsFormData={setLogsFormData}
+          />
         </div>
         <Information />
+        <Footer/>
       </Container>
     </div>
   );
