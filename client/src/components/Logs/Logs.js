@@ -37,10 +37,8 @@ const ColorButton = styled(Button)({
     }
 });
 
-let isUserLogRequested = false;
-let usernameResponse;
-let userLogsResponse;
-let userFound = false;
+let isUserLogRequested = false, userFound = false, logsFound = false;
+let usernameResponse, userLogsResponse;
 
 const Logs = ({ baseUrl, submitLogs, setSubmitLogs, userLogs, setUserLogs, userData, setUserData, logsFormData, setLogsFormData }) => {
 
@@ -69,9 +67,16 @@ const Logs = ({ baseUrl, submitLogs, setSubmitLogs, userLogs, setUserLogs, userD
             console.log(`getByUsername Response: ${JSON.stringify(userData)}, usernameResponse: ${JSON.stringify(usernameResponse)}`);
             await axios.get(`${baseUrl}/api/users/${usernameResponse._id}/logs?from=${logsFormData.fromDate}&to=${logsFormData.toDate}&limit=${logsFormData.limit}`)
                 .then((response) => {
-                    setUserLogs(response.data)
-                    userLogsResponse = response.data;
-                    console.log(`getUserLogs Response Data: ${JSON.stringify(userLogs)}, Only Logs: ${JSON.stringify(userLogs.log)}, userLogsResponse: ${JSON.stringify(userLogsResponse.log)}`);
+                    // Don't set data if no response data returned
+                    if (Object.keys(response.data).length !== 0) {
+                        setUserLogs(response.data)
+                        userLogsResponse = response.data;
+                        logsFound = true;
+                        console.log(`getUserLogs Response Data: ${JSON.stringify(userLogs)}, Only Logs: ${JSON.stringify(userLogs.log)}, userLogsResponse: ${JSON.stringify(userLogsResponse.log)}`);
+                    }
+                    else {
+                        logsFound = false;
+                    }
                 })
                 .catch((error) => {
                     console.log(`Error in getUserLogs: ${error}, username: {username}`);
@@ -89,6 +94,7 @@ const Logs = ({ baseUrl, submitLogs, setSubmitLogs, userLogs, setUserLogs, userD
             // to remove the Alerts & old data from UI
             isUserLogRequested = false;
             userFound = false;
+            logsFound = false;
 
             setSubmitLogs(true);
             isUserLogRequested = true;
@@ -125,9 +131,9 @@ const Logs = ({ baseUrl, submitLogs, setSubmitLogs, userLogs, setUserLogs, userD
 
 
     // console.log(`Inside json2table: ${JSON.stringify(userLogsResponse)}, typeof: ${typeof userLogsResponse}`)
-    const tableData = userLogsResponse !== undefined && userLogsResponse.log.map((logItem) => {
+    const tableData = logsFound && userLogsResponse !== undefined && userLogsResponse.log.map((logItem) => {
         return (
-            <tr key={logItem.description + logItem.date + Math.random().toFixed(2)}>
+            <tr key={crypto.randomUUID()}>
                 <td>{logItem.description}</td>
                 <td>{logItem.duration}</td>
                 <td>{logItem.date}</td>
@@ -161,38 +167,39 @@ const Logs = ({ baseUrl, submitLogs, setSubmitLogs, userLogs, setUserLogs, userD
                     />
                     <CssTextField
                         id="outlined-required"
-                        label="From Date"
+                        label="From Date (yyyy-mm-dd)"
                         name="fromDate"
                         placeholder="From Date (yyyy-mm-dd)"
                         className="user-input"
                         size="small"
                         margin="dense"
-                        title="Enter from date"
+                        title="Enter date since when you want the logs"
                         onChange={handleUserLogs}
                         disabled={submitLogs}
                     />
                     <CssTextField
                         id="outlined-required"
-                        label="To Date"
+                        label="To Date (yyyy-mm-dd)"
                         name="toDate"
                         placeholder="To Date (yyyy-mm-dd)"
                         className="user-input"
                         size="small"
                         margin="dense"
-                        title="Enter to date"
+                        title="Enter date till which you want the logs"
                         onChange={handleUserLogs}
                         disabled={submitLogs}
                     />
                     <CssTextField
                         id="outlined-required"
-                        label="Number of logs"
+                        label="Limit"
                         name="limit"
-                        placeholder="Limit"
+                        placeholder="Number of logs"
                         className="user-input"
                         size="small"
                         margin="dense"
-                        title="Enter number to limit logs"
+                        title="Enter number of logs to fetch"
                         type="number"
+                        InputProps={{ inputProps: {min: "0", step: "1"} }}
                         onChange={handleUserLogs}
                         disabled={submitLogs}
                     />
@@ -223,7 +230,17 @@ const Logs = ({ baseUrl, submitLogs, setSubmitLogs, userLogs, setUserLogs, userD
                         </Alert>
                     </div>
                 }
-                {isUserLogRequested && userFound &&
+                {/* Display warning alert if no logs found */}
+                {isUserLogRequested && userFound && !logsFound &&
+                    <div>
+                        <br />
+                        <Alert variant="filled" severity="warning" color="warning">
+                            No logs found for User "{logsFormData.username}" with the dates provided
+                        </Alert>
+                    </div>
+                }
+                {/* Display the data in tabular format if the user & logs are found */}
+                {isUserLogRequested && userFound && logsFound &&
                     <div className="table">
                         <table>
                             <thead>
