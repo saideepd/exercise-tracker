@@ -135,7 +135,7 @@ const User = ({ formData, setFormData, submitting, setSubmitting, post, setPost,
           <p className="endpoint user-endpoint">POST /api/users</p>
           <CssTextField
             required
-            id="outlined-required"
+            id="uname"
             label="Username"
             name="username"
             placeholder="username"

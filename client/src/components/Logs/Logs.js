@@ -161,30 +161,35 @@ const Logs = ({ baseUrl, submitLogs, setSubmitLogs, userLogs, setUserLogs, userD
                         className="user-input"
                         size="small"
                         margin="dense"
+                        type="text"
                         title="Enter your username"
                         onChange={handleUserLogs}
                         disabled={submitLogs}
                     />
                     <CssTextField
                         id="outlined-required"
-                        label="From Date (yyyy-mm-dd)"
+                        label="From Date"
                         name="fromDate"
                         placeholder="From Date (yyyy-mm-dd)"
                         className="user-input"
                         size="small"
                         margin="dense"
+                        type="date"
+                        focused
                         title="Enter date since when you want the logs"
                         onChange={handleUserLogs}
                         disabled={submitLogs}
                     />
                     <CssTextField
                         id="outlined-required"
-                        label="To Date (yyyy-mm-dd)"
+                        label="To Date"
                         name="toDate"
                         placeholder="To Date (yyyy-mm-dd)"
                         className="user-input"
                         size="small"
                         margin="dense"
+                        type="date"
+                        focused
                         title="Enter date till which you want the logs"
                         onChange={handleUserLogs}
                         disabled={submitLogs}
