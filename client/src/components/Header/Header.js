@@ -4,7 +4,7 @@ import './Header.css';
 const Header = () => {
     return (
         <div className="header">
-            <h1>Exercise Tracker</h1>
+            <h1>Fit Tracker</h1>
         </div>
     )
 }
