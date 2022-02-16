@@ -92,7 +92,7 @@ const getExerciseLog = (input, done) => {
     fromDate = ((fromDate === "" || fromDate === "undefined") ? new Date(0).toISOString().split('T')[0] : fromDate);
     toDate = ((toDate === "" || toDate === "undefined") ? new Date(10000000000000).toISOString().split('T')[0] : toDate);
     limit = ((limit === "" || limit === "undefined" || limit === undefined) ? Number.MAX_SAFE_INTEGER : limit);
-    
+
     // Find Exercise logs for user by querying using UserId
     Exercise.find({
         userId: { $eq: userId }
@@ -108,7 +108,7 @@ const getExerciseLog = (input, done) => {
         }
 
         // Return blank object if there are no logs found for user
-        if(Object.keys(logFound).length === 0) {
+        if (Object.keys(logFound).length === 0) {
             console.log(`No logs found for user ${userId}: ${JSON.stringify(logFound)}`);
             done(null, {});
             return {};
@@ -145,7 +145,7 @@ const getExerciseLog = (input, done) => {
         };
         done(null, logResponseObject);
         return logResponseObject;
-    }).sort({date: 'asc'})
+    }).sort({ date: 'asc' })
         .gte('date', new Date(fromDate).toISOString())
         .lte('date', new Date(toDate).toISOString())
         .limit(+limit);

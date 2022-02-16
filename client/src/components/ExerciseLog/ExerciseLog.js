@@ -104,7 +104,7 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
 
   return (
     <div className="exercise-component">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} id="exercise-form">
         <Paper
           elevation={3}
           className="exercise-paper"
@@ -114,7 +114,7 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
           <p className="endpoint exercise-endpoint">POST /api/users/:_id/exercises</p>
           <CssTextField
             required
-            id="outlined-required"
+            id="uid"
             label="User Id (auto-filled)"
             name=":_id"
             placeholder=":_id"
@@ -128,20 +128,21 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
           />
           <CssTextField
             required
-            id="outlined-required"
+            id="desc"
             label="Description"
             name="description"
             placeholder="Description"
             className="user-input"
             size="small"
             margin="dense"
+            type="text"
             title="Describe the exercise"
             onChange={handleUserExercise}
             disabled={exerciseSubmit}
           />
           <CssTextField
             required
-            id="outlined-required"
+            id="dur"
             label="Duration (mins.)"
             name="duration"
             placeholder="Duration (mins.)"
@@ -155,14 +156,16 @@ const ExerciseLog = ({ formData, baseUrl, userId, setUserId, exerciseSubmit, set
             disabled={exerciseSubmit}
           />
           <CssTextField
-            id="outlined-required"
-            label="Date (yyyy-mm-dd)"
+            id="date"
+            label="Date"
             name="date"
             placeholder="Date (yyyy-mm-dd)"
             className="user-input"
             size="small"
             margin="dense"
-            title="Enter the date of exercise in yyyy-mm-dd format"
+            focused
+            type="date"
+            title="Enter the date of exercise"
             onChange={handleUserExercise}
             disabled={exerciseSubmit}
           />
