@@ -213,6 +213,6 @@ You may also see any lint errors in the console which you can fix.
 <br/>
 
 ## Screenshots:
-![Fit Tracker App](https://user-images.githubusercontent.com/30663492/154312188-3d81ffe6-3a26-420b-9c17-7220f00a8e98.png "Fit Tracker App")
+![Fit Tracker App](https://user-images.githubusercontent.com/30663492/154738744-b835473e-00d6-4ead-ba20-f8d6ae7cdfe8.png "Fit Tracker App")
 
-![Fit Tracker App Responsive](https://user-images.githubusercontent.com/30663492/154340253-2aee4a6b-9838-4e06-8ba5-8c4781d28464.png "Fit Tracker App Responsive")
+![Fit Tracker App Responsive](https://user-images.githubusercontent.com/30663492/154739847-a1ae33c4-c23b-4c15-a92d-d3562b073d7d.png "Fit Tracker App Responsive")
